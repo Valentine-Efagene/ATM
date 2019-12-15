@@ -31,12 +31,16 @@ namespace ATM
         bool fingerVerified = false;
         int id = 0;
         public string acn;
+        Regex rgxCommand;
+        string patternCommand = @"Command"; // Command
+
 
         public UserControlUserFingerPrint(LoginData data)
         {
             InitializeComponent();
             this.data = data;
 
+            rgxCommand = new Regex(patternCommand);
             fingerPrint = new BackgroundWorker();
             fingerPrint.WorkerSupportsCancellation = true;
             fingerPrint.DoWork += new DoWorkEventHandler(fingerPrint_DoWork);
@@ -66,8 +70,19 @@ namespace ATM
             string rec;
             serial.Open();
 
+            try
+            {
+                serial.WriteLine("2");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                serial.Close();
+            }
+
             this.Dispatcher.BeginInvoke((Action)delegate () {
                 RichTextBoxSerial.AppendText("Place your finger for verification\n");
+                RichTextBoxSerial.ScrollToEnd();
             });
 
             this.Dispatcher.BeginInvoke((Action)delegate () {
@@ -89,7 +104,8 @@ namespace ATM
 
                     rec = serial.ReadLine();
                     this.Dispatcher.BeginInvoke((Action)delegate () {
-                       RichTextBoxSerial.AppendText(rec);
+                        RichTextBoxSerial.AppendText(rec);
+                        RichTextBoxSerial.ScrollToEnd();
                     });
 
                     if (rec.Length > 0)
@@ -116,11 +132,19 @@ namespace ATM
                                 }
                             }
                         }
+
+                        match = rgxCommand.Match(rec);
+
+                        if (match.Success)
+                        {
+                            serial.WriteLine("2");
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
+                    serial.Close();
                 }
             }
         }

@@ -33,10 +33,11 @@ namespace ATM
         const int N = 1;
         int id = 0;
         public string acn;
-        string patternCommand = @"Command"; // COmmand
+        string patternCommand = @"Command"; // Command
+        string patternGetting = @"Getting"; // Getting
         string patternStored = @"Stored"; // stored
         string patternRetry = @"not"; // Re-try
-        Regex rgxCommand, rgxStored, rgxRetry;
+        Regex rgxCommand, rgxStored, rgxRetry, rgxGetting;
 
         IDictionary<int, string> dict = new Dictionary<int, string>();
 
@@ -52,6 +53,7 @@ namespace ATM
             rgxCommand = new Regex(patternCommand);
             rgxRetry = new Regex(patternRetry);
             rgxStored = new Regex(patternStored);
+            rgxGetting = new Regex(patternGetting);
             dict.Add(1, "Right thumb");
             dict.Add(2, "Right index finger");
             dict.Add(3, "Right middle finger");
@@ -124,6 +126,13 @@ namespace ATM
                     RichTextBoxSerial.ScrollToEnd();
                 });
 
+                match = rgxGetting.Match(rec);
+
+                if (match.Success)
+                {
+                    serial.WriteLine(id.ToString());
+                }
+
                 match = rgxCommand.Match(rec);
 
                 if (match.Success)
@@ -135,8 +144,6 @@ namespace ATM
 
                 if (match.Success)
                 {
-                    String id_s = id.ToString();
-                    serial.WriteLine(id_s);
                     customer.GetFingerPrints()[index] = id;
                     id++;
                     index++;
