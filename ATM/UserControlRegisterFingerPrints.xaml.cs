@@ -30,12 +30,13 @@ namespace ATM
         public SerialPort serial = new SerialPort();
         BackgroundWorker fingerPrint;
         int line = 1;
-        const int N = 10;
+        const int N = 1;
         int id = 0;
         public string acn;
+        string patternCommand = @"Command"; // COmmand
         string patternStored = @"Stored"; // stored
-        string patternCommand = @"not"; // Re-try
-        Regex rgxCommand, rgxStored;
+        string patternRetry = @"not"; // Re-try
+        Regex rgxCommand, rgxStored, rgxRetry;
 
         IDictionary<int, string> dict = new Dictionary<int, string>();
 
@@ -49,6 +50,7 @@ namespace ATM
             this.customer = customer;
 
             rgxCommand = new Regex(patternCommand);
+            rgxRetry = new Regex(patternRetry);
             rgxStored = new Regex(patternStored);
             dict.Add(1, "Right thumb");
             dict.Add(2, "Right index finger");
@@ -92,9 +94,16 @@ namespace ATM
         {
             string rec = "";
             string recOld = "";
-            serial.WriteLine("1");
-            Thread.Sleep(2000);
             int index = 0;
+
+            if (serial.IsOpen)
+            {
+                serial.WriteLine("1");
+            }
+            else
+            {
+                MessageBox.Show("Couldn't start serial");
+            }
 
             this.Dispatcher.BeginInvoke((Action)delegate () {
                 LabelStatus.Content = "Put your " + dict[1];
@@ -115,6 +124,13 @@ namespace ATM
                     RichTextBoxSerial.ScrollToEnd();
                 });
 
+                match = rgxCommand.Match(rec);
+
+                if (match.Success)
+                {
+                    serial.WriteLine("1");
+                }
+
                 match = rgxStored.Match(rec);
 
                 if (match.Success)
@@ -130,7 +146,7 @@ namespace ATM
                     });
                 }
 
-                match = rgxCommand.Match(rec);
+                match = rgxRetry.Match(rec);
 
                 if (match.Success)
                 {
@@ -154,9 +170,16 @@ namespace ATM
                 fingerPrint.CancelAsync();
             }
 
-            MySqlHelper helper = new MySqlHelper();
-            string connectionString = "datasource=localhost; port=3306; username=" + data.getUsername() + "; password=" + data.getPassword();
-            helper.RegisterAccount(connectionString, "db_atm", "t_customers", customer);
+            try
+            {
+                MySqlHelper helper = new MySqlHelper();
+                string connectionString = "datasource=localhost; port=3306; username=" + data.getUsername() + "; password=" + data.getPassword();
+                helper.RegisterAccount(connectionString, "db_atm", "t_customers", customer);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
 
             UserControl usc = new UserControlSaving(data, customer);
             var parent = (Grid)this.Parent;

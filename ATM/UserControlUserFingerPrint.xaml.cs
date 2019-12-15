@@ -66,12 +66,27 @@ namespace ATM
             string rec;
             serial.Open();
 
+            this.Dispatcher.BeginInvoke((Action)delegate () {
+                RichTextBoxSerial.AppendText("Place your finger for verification\n");
+            });
+
+            this.Dispatcher.BeginInvoke((Action)delegate () {
+                LabelStatus.Content = "Place finger now";
+            });
+
             while (true)
             {
                 try
                 {
-                    serial.WriteLine("2");
-                    
+                    if (serial.IsOpen)
+                    {
+                        serial.WriteLine("2");
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
                     rec = serial.ReadLine();
                     this.Dispatcher.BeginInvoke((Action)delegate () {
                        RichTextBoxSerial.AppendText(rec);
@@ -79,27 +94,29 @@ namespace ATM
 
                     if (rec.Length > 0)
                     {
-                        string pattern = @"\#\d";
+                        string pattern = @"#\d+";
                         Regex rgx = new Regex(pattern);
                         MatchCollection mc = rgx.Matches(rec);
-                        id = Convert.ToInt32(mc[0].ToString().Replace("#", ""));
-                    }
+                        Match match = rgx.Match(rec);
 
-                    if (id != 0)
-                    {
-                        MySqlHelper helper = new MySqlHelper();
-                        string connectionString = "datasource=localhost; port=3306; username=" + data.getUsername() + "; password=" + data.getPassword();
-                        acn = helper.GetACN(connectionString, "db_atm", "t_customers", id);
-                        fingerVerified = helper.IDConfirmed(connectionString, "db_atm", "t_customers", acn, id);
-
-                        if (fingerVerified)
+                        if (match.Success)
                         {
-                            this.Dispatcher.BeginInvoke((Action)delegate () {
-                                Transition();
-                            });
+                            id = Convert.ToInt32(mc[0].ToString().Replace("#", ""));
+
+                            if (id != 0)
+                            {
+                                MySqlHelper helper = new MySqlHelper();
+                                string connectionString = "datasource=localhost; port=3306; username=" + data.getUsername() + "; password=" + data.getPassword();
+                                acn = helper.GetACN(connectionString, "db_atm", "t_customers", id);
+                                fingerVerified = helper.IDConfirmed(connectionString, "db_atm", "t_customers", acn, id);
+
+                                if (fingerVerified)
+                                {
+                                    break;
+                                }
+                            }
                         }
                     }
-
                 }
                 catch (Exception ex)
                 {

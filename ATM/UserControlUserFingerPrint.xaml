@@ -17,7 +17,7 @@
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="540" Width="800" Background="#2D2D30" Margin="10, 10, 10, 10">
         <StackPanel Orientation="Horizontal">
             <StackPanel CanVerticallyScroll="True" Orientation="Vertical" Opacity="1" Margin="10, 10, 10, 10" Width="400">
-                <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Verify Your Finger Print</Label>
+                <Label x:Name="LabelStatus" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Wait</Label>
                 <StackPanel Orientation="Horizontal">
                     <ComboBox x:Name="ComboBoxPort" Text="PORT" Background="#A2A2A3" FontFamily="Comic Sans MS" Margin="50, 20, 50, 10" Height="50" SelectionChanged="ComboBoxPort_SelectionChanged" MinWidth="130" />
                 </StackPanel>
