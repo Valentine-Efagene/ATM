@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="ATM.UserControlPerformTransaction"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"            
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ATM"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="400" Width="750" Background="#2D2D30" Margin="10, 10, 10, 10">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Opacity="1" Margin="10, 20, 10, 10" Width="350" >
+                <StackPanel Orientation="Horizontal" Opacity="1" Margin="10, 20, 10, 10" Width="350" >
+                    <Label Margin="0, 5, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Cash Withdraw</Label>
+                    <Button x:Name="ButtonCashWithdraw" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10, 30, 10, 10" FontSize="24" Foreground="White" Click="ButtonCashWithdraw_Click" FontFamily="Comic Sans MS" Width="80" Height="80">
+                        <materialDesign:PackIcon Kind="CashMultiple" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45" Width="55"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Opacity="1" Margin="10, 20, 10, 10" Width="350" >
+                    <Label Margin="0, 5, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Cash Deposit</Label>
+                    <Button x:Name="ButtonCashDeposit" Click="ButtonCashDeposit_Click" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10, 30, 10, 10" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Width="80" Height="80">
+                        <materialDesign:PackIcon Kind="CashMultiple" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45" Width="55"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Opacity="1" Margin="10, 10, 10, 10" Width="350">
+                <StackPanel Orientation="Horizontal" Opacity="1" Margin="10, 20, 10, 10" Width="350" >
+                    <Label Margin="0, 5, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Check Balance</Label>
+                    <Button x:Name="ButtonCheckBalance" Click="ButtonCheckBalance_Click" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10, 30, 10, 10" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Width="80" Height="80">
+                        <materialDesign:PackIcon Kind="CashMultiple" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45" Width="55"/>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Opacity="1" Margin="10, 20, 10, 10" Width="350" >
+                    <Label Margin="0, 5, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Cash Transfer</Label>
+                    <Button x:Name="ButtonCashTransfer" Click="ButtonCashTransfer_Click" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10, 30, 10, 10" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Width="80" Height="80">
+                        <materialDesign:PackIcon Kind="CashMultiple" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45" Width="55"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

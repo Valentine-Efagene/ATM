@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="ATM.UserControlEnterDetails"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"              
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ATM"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="500" Width="600" Background="#2D2D30" Margin="10, 10, 10, 10">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Opacity="1" Margin="10, 50, 10, 10">
+                <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">First Name</Label>
+                <TextBox x:Name="TextBoxFirstName" TextAlignment="Center" Width="200" Padding="10, 0, 10, 0" Foreground="Black" FontFamily="Comic Sans MS" FontSize="22" Margin="50, 0, 50, 0" Background="White" Height="50" BorderBrush="Aqua">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Margin="0, 10, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Middle Name</Label>
+                <TextBox x:Name="TextBoxMiddleName" TextAlignment="Center" Padding="10, 0, 10, 0" Foreground="Black" FontFamily="Comic Sans MS" FontSize="22" Margin="50, 0, 50, 0" Background="White" Height="50" BorderBrush="Aqua">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+
+                <Label Margin="0, 10, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Last Name</Label>
+                <TextBox x:Name="TextBoxLastName" TextAlignment="Center" Padding="10, 0, 10, 0" Foreground="Black" FontFamily="Comic Sans MS" FontSize="22" Margin="50, 0, 50, 0" Background="White" Height="50" BorderBrush="Aqua">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Opacity="1" Margin="0, 50, 10, 10">
+                <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Account Number</Label>
+                <TextBox x:Name="TextBoxACN" TextAlignment="Center" Width="200" Padding="10, 0, 10, 0" Foreground="Black" FontFamily="Comic Sans MS" FontSize="22" Margin="50, 0, 50, 0" Background="White" Height="50" BorderBrush="Aqua">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Margin="0, 10, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Phone Number</Label>
+                <TextBox x:Name="TextBoxPhoneNumber" TextAlignment="Center" Padding="10, 0, 10, 0" Foreground="Black" FontFamily="Comic Sans MS" FontSize="22" Margin="50, 0, 50, 0" Background="White" Height="50" BorderBrush="Aqua">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+
+                <Label Margin="0, 10, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Email</Label>
+                <TextBox x:Name="TextBoxEmail" TextAlignment="Center" Padding="10, 0, 10, 0" Foreground="Black" FontFamily="Comic Sans MS" FontSize="22" Margin="50, 0, 50, 0" Background="White" Height="50" BorderBrush="Aqua">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Button x:Name="ButtonContinue" Background="#A2A2A3" FontFamily="Comic Sans MS" Margin="50, 20, 50, 10" Height="50" Width="100" Click="ButtonContinue_Click">
+                    <materialDesign:PackIcon Kind="ArrowRight" Height="25" Width="25" Margin="10"/>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
