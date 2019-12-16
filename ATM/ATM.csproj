@@ -184,9 +184,5 @@
   <ItemGroup>
     <Resource Include="uniben.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="background.jpg" />
-    <Resource Include="background2.jpg" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

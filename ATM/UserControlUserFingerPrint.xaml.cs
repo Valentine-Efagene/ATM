@@ -25,6 +25,7 @@ namespace ATM
     public partial class UserControlUserFingerPrint : UserControl
     {
         LoginData data = null;
+        int failCount = 0;
         SerialPort serial = new SerialPort();
         Customer c = new Customer();
         BackgroundWorker fingerPrint;
@@ -58,6 +59,21 @@ namespace ATM
             {
                 Transition();
             }
+            else
+            {
+                if (serial != null)
+                {
+                    if (serial.IsOpen)
+                    {
+                        serial.Close();
+                    }
+                }
+
+                UserControl usc = new UserControlWelcome(data);
+                var parent = (Grid)this.Parent;
+                parent.Children.Add(usc);
+                parent.Children.Remove(this);
+            }
 
             if(serial != null)
             {
@@ -67,6 +83,10 @@ namespace ATM
 
         private void fingerPrint_DoWork(object sender, DoWorkEventArgs e)
         {
+            string pattern = @"#\d+";
+            Regex rgx;
+            MatchCollection mc;
+            Match match;
             string rec;
             serial.Open();
 
@@ -93,11 +113,11 @@ namespace ATM
             {
                 try
                 {
-                    if (serial.IsOpen)
+                    try
                     {
                         serial.WriteLine("2");
                     }
-                    else
+                    catch (Exception ex)
                     {
                         continue;
                     }
@@ -110,10 +130,10 @@ namespace ATM
 
                     if (rec.Length > 0)
                     {
-                        string pattern = @"#\d+";
-                        Regex rgx = new Regex(pattern);
-                        MatchCollection mc = rgx.Matches(rec);
-                        Match match = rgx.Match(rec);
+                        pattern = @"#\d+";
+                        rgx = new Regex(pattern);
+                        mc = rgx.Matches(rec);
+                        match = rgx.Match(rec);
 
                         if (match.Success)
                         {
@@ -133,11 +153,27 @@ namespace ATM
                             }
                         }
 
-                        match = rgxCommand.Match(rec);
+                        pattern = @"not";
+                        rgx = new Regex(pattern);
+                        mc = rgx.Matches(rec);
+                        match = rgx.Match(rec);
 
                         if (match.Success)
                         {
-                            serial.WriteLine("2");
+                            failCount++;
+
+                            if (failCount < 3)
+                            {
+                                MessageBox.Show("Did not find a match.\nTry again when prompted to");
+                            }
+                        }
+
+                        if (failCount == 3)
+                        {
+                            MessageBox.Show("ATM card temporarily disabled");
+
+                            serial.Close();
+                            break;
                         }
                     }
                 }

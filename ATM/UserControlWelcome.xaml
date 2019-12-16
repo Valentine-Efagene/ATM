@@ -7,8 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="background.jpg" Stretch="UniformToFill"/>
-        </Grid.Background>
+        <Label Margin="0, 0, 0, 100" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="34" Foreground="White" FontFamily="Comic Sans MS" Height="auto">WELCOME, DEAR CUSTORMER</Label>
     </Grid>
 </UserControl>
