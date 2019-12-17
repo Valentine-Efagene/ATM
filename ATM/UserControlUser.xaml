@@ -6,11 +6,10 @@
              xmlns:local="clr-namespace:ATM"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid x:Name="grid" Focusable="True" PreviewKeyDown="Grid_PreviewKeyDown">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-            <Label VerticalAlignment="Center" Margin="10 10 10 10" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Insert ATM Card</Label>
+            <Label x:Name="MessageLabel" VerticalAlignment="Center" Focusable="True" Margin="10 10 10 10" HorizontalAlignment="Center" FontSize="24" Foreground="White" FontFamily="Comic Sans MS" Height="auto">Insert ATM Card</Label>
             <Separator VerticalAlignment="Center" Width="300" Background="AliceBlue" Height="5"/>
-            <TextBox x:Name="TextBoxT" KeyDown="TextBox_KeyDown"/>
         </StackPanel>
         <ContentControl Content="ContentControl" HorizontalAlignment="Left" Height="100" Margin="1912,508,-1212,-158" VerticalAlignment="Top" Width="100"/>
     </Grid>

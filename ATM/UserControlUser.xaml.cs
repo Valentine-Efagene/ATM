@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ATM
 {
@@ -26,13 +27,16 @@ namespace ATM
         {
             InitializeComponent();
             this.data = data;
-            TextBoxT.Focus();
-            Keyboard.Focus(TextBoxT);
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(delegate ()
+            {
+                grid.Focus();         // Set Logical Focus
+                Keyboard.Focus(grid); // Set Keyboard Focus
+            }));
         }
 
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        private void Grid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Space)
             {
                 UserControl usc = new UserControlUserFingerPrint(data);
                 var parent = (Grid)this.Parent;
