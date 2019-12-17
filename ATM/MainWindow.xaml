@@ -48,7 +48,7 @@
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>
-            <TextBlock HorizontalAlignment="Center" FontFamily="Comic Sans MS" VerticalAlignment="Center" FontSize="22">LEANY BANK PLC</TextBlock>
+            <TextBlock HorizontalAlignment="Center" FontFamily="Comic Sans MS" VerticalAlignment="Center" FontSize="22">THE MINIATURE ATM SYSTEM (MAS)</TextBlock>
         </Grid>
         <Grid x:Name="GridMenu" Width="70" HorizontalAlignment="Left" Background="#2D2D30">
             <Grid.Effect>

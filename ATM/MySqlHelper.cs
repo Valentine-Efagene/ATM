@@ -86,16 +86,14 @@ namespace ATM
             try
             {
                 connection.Open();
-                command.CommandText = "INSERT INTO " + databaseName + "." + tableName +
-                    " (f_acn, f_first_name, f_middle_name, f_last_name, f_phone_number, f_email, f_fingerprint_id_1, f_fingerprint_id_2," +
-                    " f_fingerprint_id_3, f_fingerprint_id_4, f_fingerprint_id_5, f_fingerprint_id_6, f_fingerprint_id_7," +
-                    " f_fingerprint_id_8, f_fingerprint_id_9, f_fingerprint_id_10) VALUES(" +
+                //customer.GetFingerPrints()[9] = 10;
+                command.CommandText = "INSERT INTO " + databaseName + "." + tableName + " (f_acn, f_first_name, f_middle_name, f_last_name, f_fingerprint_id_1, " +
+                    "f_fingerprint_id_2, f_fingerprint_id_3, f_fingerprint_id_4, f_fingerprint_id_5, f_fingerprint_id_6, f_fingerprint_id_7, " +
+                    "f_fingerprint_id_8, f_fingerprint_id_9, f_fingerprint_id_10, f_email, f_phone_number) VALUES (" + 
                     "\"" + customer.GetAccountNumber() + "\"" + ", " + 
                     "\"" + customer.GetFirstName() + "\"" + ", " + 
                     "\"" + customer.GetMiddleName() + "\"" + ", " + 
                     "\"" + customer.GetLastName() + "\"" + ", " +
-                    "\"" + customer.GetPhoneNumber() + "\"" + ", " +
-                    "\"" + customer.GetEmail() + "\"" + ", " +
                     "\"" + customer.GetFingerPrints()[0] + "\"" + ", " +
                     "\"" + customer.GetFingerPrints()[1] + "\"" + ", " +
                     "\"" + customer.GetFingerPrints()[2] + "\"" + ", " +
@@ -105,7 +103,9 @@ namespace ATM
                     "\"" + customer.GetFingerPrints()[6] + "\"" + ", " +
                     "\"" + customer.GetFingerPrints()[7] + "\"" + ", " +
                     "\"" + customer.GetFingerPrints()[8] + "\"" + ", " +
-                    "\"" + customer.GetFingerPrints()[9] + "\"" +
+                    "\"" + customer.GetFingerPrints()[9] + "\"" + ", " +
+                    "\"" + customer.GetEmail() + "\"" + ", " +
+                    "\"" + customer.GetPhoneNumber() + "\"" +
                     " )";
 
                 int ret = command.ExecuteNonQuery();

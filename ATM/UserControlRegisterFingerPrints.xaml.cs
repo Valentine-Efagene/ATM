@@ -30,7 +30,7 @@ namespace ATM
         public SerialPort serial = new SerialPort();
         BackgroundWorker fingerPrint;
         int line = 1;
-        const int N = 1;
+        const int N = 10;
         int id = 0;
         public string acn;
         string patternCommand = @"Command"; // Command
@@ -111,7 +111,7 @@ namespace ATM
                 LabelStatus.Content = "Put your " + dict[1];
             });
 
-            while (true)
+            while (index < N)
             {
                 recOld = rec;
                 rec = serial.ReadLine();
@@ -148,9 +148,12 @@ namespace ATM
                     id++;
                     index++;
 
-                    this.Dispatcher.BeginInvoke((Action)delegate () {
-                        LabelStatus.Content = "Put your " + dict[index + 1];
-                    });
+                    if (index < 9)
+                    {
+                        this.Dispatcher.BeginInvoke((Action)delegate () {
+                            LabelStatus.Content = "Put your " + dict[index + 1];
+                        });
+                    }
                 }
 
                 match = rgxRetry.Match(rec);
@@ -161,11 +164,6 @@ namespace ATM
                     this.Dispatcher.BeginInvoke((Action)delegate () {
                         LabelStatus.Content = "Put your " + dict[index + 1] + " again";
                     });
-                }
-
-                if (index == N)
-                {
-                    break;
                 }
             }
         }
