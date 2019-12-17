@@ -113,14 +113,7 @@ namespace ATM
             {
                 try
                 {
-                    try
-                    {
-                        serial.WriteLine("2");
-                    }
-                    catch (Exception ex)
-                    {
-                        continue;
-                    }
+                    serial.WriteLine("2");
 
                     rec = serial.ReadLine();
                     this.Dispatcher.BeginInvoke((Action)delegate () {

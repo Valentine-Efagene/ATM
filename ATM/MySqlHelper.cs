@@ -225,11 +225,19 @@ namespace ATM
         public bool IDConfirmed(string connectionString, string databaseName, string tableName, string accountNumber, int id)
         {
             string acn = null;
-            accountNumber = accountNumber.ToUpper().Trim();
+            accountNumber = accountNumber.Trim();
             MySqlConnection connection = new MySqlConnection(connectionString);
             MySqlCommand command = connection.CreateCommand();
             command.CommandText = "SELECT f_acn FROM " +
-                databaseName + "." + tableName + " WHERE f_fingerprint_id_1 = " + id;
+                databaseName + "." + tableName + " WHERE f_fingerprint_id_1 = " + id +
+                " OR f_fingerprint_id_2 = " + id +
+                " OR f_fingerprint_id_3 = " + id +
+                " OR f_fingerprint_id_4 = " + id +
+                " OR f_fingerprint_id_5 = " + id +
+                " OR f_fingerprint_id_6 = " + id +
+                " OR f_fingerprint_id_7 = " + id +
+                " OR f_fingerprint_id_8 = " + id +
+                " OR f_fingerprint_id_9 = " + id;
 
             try
             {
